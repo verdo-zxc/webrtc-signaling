@@ -1,7 +1,6 @@
-// index.js
 const WebSocket = require('ws');
-
-const wss = new WebSocket.Server({ port: 8080 });
+const server = require('http').createServer();
+const wss = new WebSocket.Server({ server });
 
 let clients = {};
 
@@ -41,4 +40,7 @@ wss.on('connection', (ws) => {
   });
 });
 
-console.log('Signaling server running on port 8080');
+const PORT = process.env.PORT || 8080;
+server.listen(PORT, () => {
+  console.log(`Signaling server running on port ${PORT}`);
+});
